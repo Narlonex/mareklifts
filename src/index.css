@@ -1,0 +1,214 @@
+@import 'tailwindcss';
+
+/* Dark mode is class-driven so the user can override their OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+
+  --app-canvas: #f4f6f9;
+  --app-surface: #ffffff;
+  --app-surface-2: #f8fafc;
+  --app-line: #e7ebf0;
+  --app-line-strong: #d3dae3;
+  --app-ink: #0f172a;
+  --app-muted: #64748b;
+  --app-subtle: #94a3b8;
+
+  --app-accent: #2563eb;
+  --app-accent-hover: #1d4ed8;
+  --app-onaccent: #ffffff;
+  --app-accentsoft: #eaf1fe;
+
+  --app-success: #16a34a;
+  --app-successsoft: #e8f7ee;
+  --app-warn: #c2740a;
+  --app-warnsoft: #fdf3e3;
+  --app-pr: #7c3aed;
+  --app-prsoft: #f1ecfe;
+  --app-danger: #dc2626;
+  --app-dangersoft: #fdecec;
+
+  --app-shadow: 0 1px 2px rgb(15 23 42 / 0.06), 0 1px 3px rgb(15 23 42 / 0.04);
+  --app-shadow-lg: 0 8px 24px -6px rgb(15 23 42 / 0.16), 0 2px 6px rgb(15 23 42 / 0.06);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --app-canvas: #0b0f14;
+  --app-surface: #141a21;
+  --app-surface-2: #1a222b;
+  --app-line: #242d38;
+  --app-line-strong: #36414f;
+  --app-ink: #eef2f7;
+  --app-muted: #93a1b3;
+  --app-subtle: #6b7a8d;
+
+  --app-accent: #3b82f6;
+  --app-accent-hover: #2f6fe0;
+  --app-onaccent: #ffffff;
+  --app-accentsoft: #16273f;
+
+  --app-success: #4ade80;
+  --app-successsoft: #12291d;
+  --app-warn: #f0b429;
+  --app-warnsoft: #2c2314;
+  --app-pr: #a78bfa;
+  --app-prsoft: #241c3d;
+  --app-danger: #f87171;
+  --app-dangersoft: #331a1a;
+
+  --app-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  --app-shadow-lg: 0 10px 30px -8px rgb(0 0 0 / 0.7);
+}
+
+@theme inline {
+  --color-canvas: var(--app-canvas);
+  --color-surface: var(--app-surface);
+  --color-surface2: var(--app-surface-2);
+  --color-line: var(--app-line);
+  --color-linestrong: var(--app-line-strong);
+  --color-ink: var(--app-ink);
+  --color-muted: var(--app-muted);
+  --color-subtle: var(--app-subtle);
+
+  --color-accent: var(--app-accent);
+  --color-accenthover: var(--app-accent-hover);
+  --color-onaccent: var(--app-onaccent);
+  --color-accentsoft: var(--app-accentsoft);
+
+  --color-success: var(--app-success);
+  --color-successsoft: var(--app-successsoft);
+  --color-warn: var(--app-warn);
+  --color-warnsoft: var(--app-warnsoft);
+  --color-pr: var(--app-pr);
+  --color-prsoft: var(--app-prsoft);
+  --color-danger: var(--app-danger);
+  --color-dangersoft: var(--app-dangersoft);
+
+  --shadow-card: var(--app-shadow);
+  --shadow-lift: var(--app-shadow-lg);
+
+  --animate-sheet-up: sheet-up 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-toast-in: toast-in 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-pop: pop 180ms ease-out;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    background-color: var(--app-canvas);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--app-canvas);
+    color: var(--app-ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+      sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    overscroll-behavior-y: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Numeric fields must never reflow while ticking or being edited. */
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--app-accent);
+    outline-offset: 2px;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--safe-pad, 0px));
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateY(-16px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
